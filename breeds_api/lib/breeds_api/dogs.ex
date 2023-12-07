@@ -14,8 +14,7 @@ defmodule BreedApi.Dogs do
   @spec create_breed(map()) :: {:ok, Breed.t()} | {:error, String.t()}
   def create_breed(%{image: image, breed_name: breed_name}) do
     with {:ok, file_name} <- Breed.build_file_name(breed_name),
-         :ok <- validate_uniq?(file_name),
-         :ok <- validate_jpeg?(image) do
+         :ok <- validate_uniq?(file_name) do
       File.cp!(image.path, write_path(file_name))
 
       {:ok, "success"}
@@ -31,22 +30,20 @@ defmodule BreedApi.Dogs do
     Path.join([:code.priv_dir(:breeds_api), "static", "images"])
   end
 
-  @spec validate_jpeg?(Plug.Upload.t()) :: :ok | {:error, String.t()}
-  defp validate_jpeg?(%{content_type: "image/jpeg"}), do: :ok
-  defp validate_jpeg?(_), do: {:error, "Image must be a jpeg"}
-
   @spec validate_uniq?(String.t()) :: :ok | {:error, String.t()}
   defp validate_uniq?(file_name) do
     if Enum.member?(list_files(), file_name), do: {:error, "File alread exists"}, else: :ok
   end
 
-  defp list_files do
+  @spec list_files :: {:ok, list(String.t())}
+  def list_files do
     case File.ls(images_path()) do
-      {:ok, file_names} -> file_names
+      {:ok, file_names} -> Enum.sort(file_names)
       _ -> raise "Could not read file system"
     end
   end
 
+  @spec write_path(String.t()) :: String.t()
   defp write_path(filename) do
     Application.app_dir(:breeds_api, "priv/static/images/#{filename}")
   end

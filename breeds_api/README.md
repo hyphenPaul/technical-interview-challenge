@@ -7,6 +7,13 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
+```
+curl -X POST \
+-F query="mutation {createBreed(image: \"image_file\", breed_name: \"golden retriever\")}" \
+-F image_file=@/Users/seanpaulfenton/cat.jpeg \
+localhost:4000/api
+```
+
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
 ## Learn more

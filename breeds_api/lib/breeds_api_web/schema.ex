@@ -24,18 +24,6 @@ defmodule BreedsApiWeb.Schema do
       arg(:breed_name, non_null(:string))
 
       resolve(&BreedResolver.create_breed/3)
-      # resolve(fn args, _ ->
-      #   with %Plug.Upload{path: path} <- IO.inspect(args.image),
-      #        {:ok, content} <- File.read(path),
-      #        filename <-
-      #          String.split(args.breed_name) |> Enum.map(&String.downcase/1) |> Enum.join("_"),
-      #        write_path <- Application.app_dir(:community, "priv/static/#{filename}.jpg"),
-      #        :ok <- File.write(write_path, content) do
-      #     {:ok, "success"}
-      #   else
-      #     {:error, error} -> {:error, error}
-      #   end
-      # end)
     end
   end
 end

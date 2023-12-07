@@ -6,7 +6,6 @@ defmodule BreedsApiWeb.BreedResolver do
   end
 
   def create_breed(_root, args, _info) do
-    IO.inspect(args, label: "args")
     Dogs.create_breed(args)
   end
 end
