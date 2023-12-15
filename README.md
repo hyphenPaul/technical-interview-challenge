@@ -33,13 +33,13 @@ Clone the repo locally.
 
 ```
 cd ~
-git@github.com:hyphenPaul/technical-interview-challenge.git
+git clone git@github.com:hyphenPaul/technical-interview-challenge.git
 ```
 
 CD into the API an run it first.
 
 ```
-cd ~/breeds_api
+cd ~/technical-interview-challenge/breeds_pi
 mix setup
 mix phx.server
 ```
@@ -47,7 +47,7 @@ mix phx.server
 Open a new console session and cd into the live view app and run it.
 
 ```
-cd ~/breeds_api
+cd ~/technical-interview-challenge/breeds
 mix setup
 mix phx.server
 ```
